@@ -2,6 +2,9 @@ import express, { json } from "express";
 import morgan from "morgan";
 import cors from "cors";
 
+import homeRoute from "./routes/home.routes";
+import operationRoute from "./routes/operations.routes";
+
 const app = express();
 
 // settings
@@ -13,8 +16,7 @@ app.use(cors());
 app.use(json());
 
 // routes
-app.get("/", (req, res) => {
-  res.send("Hello  World!");
-});
+app.use(homeRoute);
+app.use(operationRoute);
 
 export default app;
