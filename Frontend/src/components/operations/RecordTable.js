@@ -1,46 +1,44 @@
 import React from "react";
+import { useFetch } from "../hooks/useFetch";
 
 export const RecordTable = () => {
+  const url = "http://localhost:3000/api/operations";
+  const { data } = useFetch(url);
+  console.log(data);
   return (
     <div className="mt-3">
       <h3>Operations log:</h3>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Concept</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Type</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Compra de Celular</td>
-            <td>20/01/21</td>
-            <td>200</td>
-            <td>INGRESO</td>
-            <td>
-              <button type="button" className="btn btn-info mr-3">
-                Edit
-              </button>
-              <button type="button" className="btn btn-danger">
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Compra de Tablet</td>
-            <td>20/01/21</td>
-            <td>200</td>
-            <td>EGRESO</td>
-            <td>
-              <button className="btn btn-info mr-3">Edit</button>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Concept</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Type</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((n) => (
+              <tr key={n.operation_id}>
+                <td>{n.concept}</td>
+                <td>{n.operation_date}</td>
+                <td>{n.amount}</td>
+                <td>Ingress</td>
+                <td>
+                  <button className="btn btn-info mr-3 mb-3">
+                    <i className="fa fa-edit"></i>edit
+                  </button>
+                  <button className="btn btn-danger mb-3">
+                    <i className="fa fa-trash"></i>delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

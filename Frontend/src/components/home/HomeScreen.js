@@ -8,7 +8,7 @@ export const HomeScreen = () => {
       <span>$30000</span>
       <div className="mt-3">
         <h3>Last 10 operations:</h3>
-        <table class="table table-hover">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th>Concept</th>
