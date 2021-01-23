@@ -11,3 +11,5 @@ SELECT * FROM operations;
 
 INSERT INTO operations(operation_date, concept, amount) VALUES('2021-01-20','compra de teclado para la pc', 1400);
 
+ALTER TABLE operations
+ADD COLUMN type VARCHAR(20);

@@ -5,10 +5,10 @@ const getOperations = async (url) => {
   const data = await response.json();
 
   const operation = data.map((op) => ({
-    operation_id: op.operation_id,
     operation_date: op.operation_date,
     concept: op.concept,
     amount: op.amount,
+    type: op.type,
   }));
   return operation;
 };

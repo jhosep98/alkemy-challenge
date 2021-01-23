@@ -6,16 +6,16 @@ const getOperations = async (req, res) => {
 };
 
 const createOperation = async (req, res) => {
-  const { operation_date, concept, amount } = req.body;
+  const { operation_date, concept, amount, type } = req.body;
   const response = await pool.query(
-    "INSERT INTO operations(operation_date,concept,amount) VALUES($1,$2,$3)",
-    [operation_date, concept, amount]
+    "INSERT INTO operations(operation_date,concept,amount,type) VALUES($1,$2,$3,$4)",
+    [operation_date, concept, amount, type]
   );
   console.log(response);
   res.json({
     message: "Operation Added Successfully",
     body: {
-      operation: { operation_date, concept, amount },
+      operation: { operation_date, concept, amount, type },
     },
   });
 };
