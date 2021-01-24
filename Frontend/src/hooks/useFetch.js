@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 const getOperations = async (url) => {
   const response = await fetch(url);
   const data = await response.json();
-
+  console.log(data);
   const operation = data.map((op) => ({
+    operation_id: op.operation_id,
     operation_date: op.operation_date,
     concept: op.concept,
     amount: op.amount,

@@ -6,7 +6,7 @@ export const FormOperation = () => {
     operation_date: new Date(),
     concept: "",
     amount: 0,
-    type: "entry",
+    type: "expenses",
   };
   const [formValues, handleInputChange] = useForm(initialForm);
   const { operation_date, concept, amount, type } = formValues;
@@ -45,7 +45,7 @@ export const FormOperation = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="concept">Concept</label>
+          <label htmlFor="concept">Description</label>
           <input
             type="text"
             className="form-control"
@@ -54,6 +54,7 @@ export const FormOperation = () => {
             name="concept"
             value={concept}
             onChange={handleInputChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -66,6 +67,7 @@ export const FormOperation = () => {
             name="amount"
             value={amount}
             onChange={handleInputChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -77,8 +79,8 @@ export const FormOperation = () => {
             value={type}
             onChange={handleInputChange}
           >
-            <option value="ingress">Ingress</option>
-            <option value="egress">Egress</option>
+            <option value="expenses">Expenses</option>
+            <option value="income">Income</option>
           </select>
         </div>
         <button type="submit" className="btn btn-primary">

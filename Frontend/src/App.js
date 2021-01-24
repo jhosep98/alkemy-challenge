@@ -11,12 +11,12 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/operations" component={OperationsScreen}></Route>
+          <Route exact path="/" component={HomeScreen}></Route>
           <Route
             exact
             path="/operations/:id/update"
             component={OperationUpdate}
           ></Route>
-          <Route exact path="/" component={HomeScreen}></Route>
         </Switch>
       </div>
     </Router>
