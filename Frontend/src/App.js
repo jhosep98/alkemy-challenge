@@ -1,25 +1,29 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { HomeScreen } from "./routes/home/HomeScreen";
-import { OperationsScreen } from "./routes/operations/OperationsScreen";
-import { OperationUpdate } from "./routes/operationUpdate/OperationUpdate";
+import { OperationContextProvider } from "./context/OperationContext";
+
+import { Home } from "./routes/Home";
+import { Navbar } from "./components/Navbar.jsx";
+import { UpdatePage } from "./routes/UpdatePage.jsx";
+import { OperationList } from "./routes/OperationList";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Switch>
-          <Route exact path="/operations" component={OperationsScreen}></Route>
-          <Route exact path="/" component={HomeScreen}></Route>
-          <Route
-            exact
-            path="/operations/:id/update"
-            component={OperationUpdate}
-          ></Route>
-        </Switch>
-      </div>
-    </Router>
+    <OperationContextProvider>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route exact path="/operations" component={OperationList}></Route>
+            <Route exact path="/" component={Home}></Route>
+            <Route
+              exact
+              path="/operations/:id/update"
+              component={UpdatePage}
+            ></Route>
+          </Switch>
+        </div>
+      </Router>
+    </OperationContextProvider>
   );
 }
 

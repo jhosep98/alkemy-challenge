@@ -5,6 +5,24 @@ const getOperations = async (req, res) => {
   res.status(200).json(response.rows);
 };
 
+const getOperation = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await pool.query(
+      "SELECT * FROM operations WHERE operation_id = $1",
+      [id]
+    );
+    res.status(200).json({
+      status: "succes",
+      body: {
+        operation: response.rows,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const createOperation = async (req, res) => {
   const { operation_date, concept, amount, type } = req.body;
   const response = await pool.query(
@@ -43,6 +61,7 @@ const deleteOperation = async (req, res) => {
 
 module.exports = {
   getOperations,
+  getOperation,
   createOperation,
   updateOperation,
   deleteOperation,

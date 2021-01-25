@@ -1,39 +1,29 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useForm } from "../../hooks/useForm";
+import React, { useContext } from "react";
+import { useForm } from "../hooks/useForm";
+import OperationFinder from "../apis/OperationFinder";
+import { OperationContext } from "../context/OperationContext";
 
-export const OperationUpdate = () => {
-  const { id } = useParams();
+export const AddOperation = () => {
+  const { addOperations } = useContext(OperationContext);
   const initialForm = {
     operation_date: new Date(),
     concept: "",
     amount: 0,
+    type: "expenses",
   };
   const [formValues, handleInputChange] = useForm(initialForm);
-  const { operation_date, concept, amount } = formValues;
+  const { operation_date, concept, amount, type } = formValues;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/operations/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formValues),
-        }
-      );
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
+      const response = await OperationFinder.post("/", formValues);
+      addOperations(response.data.body.operation);
+    } catch (error) {}
   };
   return (
-    <div className="container mt-5">
-      <h3 className="text-center">Update Operation</h3>
+    <>
+      <h2>Adding new operation</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="concept">Date</label>
@@ -53,7 +43,7 @@ export const OperationUpdate = () => {
             type="text"
             className="form-control"
             id="concept"
-            placeholder="Enter description"
+            placeholder="Enter concept"
             name="concept"
             value={concept}
             onChange={handleInputChange}
@@ -73,10 +63,23 @@ export const OperationUpdate = () => {
             required
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="type">Type</label>
+          <select
+            className="form-control"
+            id="type"
+            name="type"
+            value={type}
+            onChange={handleInputChange}
+          >
+            <option value="expenses">Expenses</option>
+            <option value="income">Income</option>
+          </select>
+        </div>
         <button type="submit" className="btn btn-primary">
           add operation
         </button>
       </form>
-    </div>
+    </>
   );
 };
