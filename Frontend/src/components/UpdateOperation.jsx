@@ -28,7 +28,7 @@ export const UpdateOperation = () => {
       concept,
       amount,
     });
-    history.push("/");
+    history.push("/operations");
   };
 
   return (
@@ -74,9 +74,10 @@ export const UpdateOperation = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-outline-info"
           onClick={handleSubmit}
         >
+          <i className="fa fa-plus mr-3"></i>
           add operation
         </button>
       </form>

@@ -11,19 +11,34 @@ export const AddOperation = () => {
     amount: 0,
     type: "expenses",
   };
-  const [formValues, handleInputChange] = useForm(initialForm);
+  const [formValues, handleInputChange, reset] = useForm(initialForm);
   const { operation_date, concept, amount, type } = formValues;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await OperationFinder.post("/", formValues);
-      addOperations(response.data.body.operation);
-    } catch (error) {}
+      if (formValues.type === "expenses") {
+        const response = await OperationFinder.post("/", {
+          amount: -Math.abs(amount),
+          operation_date,
+          concept,
+          type,
+        });
+        addOperations(response.data.body.operation);
+      } else {
+        const response = await OperationFinder.post("/", formValues);
+        addOperations(response.data.body.operation);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setTimeout(() => {
+      reset();
+    }, 1000);
   };
   return (
-    <>
-      <h2>Adding new operation</h2>
+    <div className="mt-5">
+      <h2>Add new operation</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="concept">Date</label>
@@ -76,10 +91,11 @@ export const AddOperation = () => {
             <option value="income">Income</option>
           </select>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-outline-info">
+          <i className="fa fa-plus mr-3"></i>
           add operation
         </button>
       </form>
-    </>
+    </div>
   );
 };

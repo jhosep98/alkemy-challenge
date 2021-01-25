@@ -21,20 +21,22 @@ export const Home = () => {
 
   return (
     <div className="container mt-4">
-      <h1>Balance of all operations</h1>
+      <h2>Balance of all operations</h2>
       <div className="container d-flex justify-content-between">
-        <div className="font-weight-bold">Total:</div>
-        <div className="">
+        <p className="font-weight-bold">Total:</p>
+        <div>
           {balance.map((n) => (
-            <p key={n.sum}>$./{n.sum}</p>
+            <p key={n.sum}>
+              <span>&#36;</span> {Number(n.sum).toFixed(2)}
+            </p>
           ))}
         </div>
       </div>
       <div className="mt-3">
         <h2>Last 10 operations:</h2>
-        <table className="table table-hover table-dark mt-3">
+        <table className="table table-hover border mt-3">
           <thead>
-            <tr className="bg-primary">
+            <tr className="bg-info">
               <th>Concept</th>
               <th>Date</th>
               <th>Amount ($)</th>
@@ -45,9 +47,17 @@ export const Home = () => {
             {operations.map((n) => (
               <tr key={n.operation_id}>
                 <td>{n.concept}</td>
-                <td>{n.operation_date}</td>
-                <td>{n.amount}</td>
-                <td>{n.type}</td>
+                <td>
+                  {new Date(n.operation_date).toISOString().substring(0, 10)}
+                </td>
+                <td>{Number(n.amount).toFixed(2)}</td>
+                <td>
+                  {n.type === "expenses" ? (
+                    <span className="badge badge-danger">{n.type}</span>
+                  ) : (
+                    <span className="badge badge-success">{n.type}</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

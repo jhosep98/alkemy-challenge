@@ -38,9 +38,9 @@ export const OperationList = () => {
       <div className="mt-3">
         <h3>Operations log:</h3>
         <div className="list-group table-responsive">
-          <table className="table table-hover table-dark">
+          <table className="table table-hover border">
             <thead>
-              <tr className="bg-primary">
+              <tr className="bg-info">
                 <th scope="col">Description</th>
                 <th scope="col">Date</th>
                 <th scope="col">Amount ($)</th>
@@ -53,13 +53,30 @@ export const OperationList = () => {
               {operations &&
                 operations.map((operation) => (
                   <tr key={operation.operation_id}>
-                    <td>{operation.concept}</td>
-                    <td>{operation.operation_date}</td>
-                    <td>{operation.amount}</td>
-                    <td>{operation.type}</td>
+                    <td>
+                      {operation.concept.charAt(0).toUpperCase() +
+                        operation.concept.slice(1)}
+                    </td>
+                    <td>
+                      {new Date(operation.operation_date)
+                        .toISOString()
+                        .substring(0, 10)}
+                    </td>
+                    <td>{Number(operation.amount).toFixed(2)}</td>
+                    <td>
+                      {operation.type === "expenses" ? (
+                        <span className="badge badge-danger">
+                          {operation.type}
+                        </span>
+                      ) : (
+                        <span className="badge badge-success">
+                          {operation.type}
+                        </span>
+                      )}
+                    </td>
                     <td>
                       <button
-                        className="btn btn-warning mr-3 mb-3"
+                        className="btn btn-info mr-3 mb-3"
                         onClick={() => handleUpdate(operation.operation_id)}
                       >
                         <i className="fa fa-edit mr-1"></i>Update
@@ -67,7 +84,7 @@ export const OperationList = () => {
                     </td>
                     <td>
                       <button
-                        className="btn btn-danger mb-3"
+                        className="btn btn-secondary mb-3"
                         onClick={() => handleDelete(operation.operation_id)}
                       >
                         <i className="fa fa-trash mr-1"></i>
