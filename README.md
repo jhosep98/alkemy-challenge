@@ -1,4 +1,4 @@
-# Audio-player
+# Alkemy-challenge
 
 > Developing a personal budget for Alkemy challenge. 📈😎
 
