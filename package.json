@@ -8,9 +8,17 @@
     "dev": "nodemon src/index.js --exec babel-node",
     "start": "node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "budget",
+    "finance",
+    "expense-tracker",
+    "personal-finance",
+    "react",
+    "nodejs",
+    "postgresql"
+  ],
+  "author": "jhosep98",
+  "license": "MIT",
   "dependencies": {
     "core-js": "^3.8.2",
     "cors": "^2.8.5",
